@@ -1,7 +1,8 @@
-import prisma from '../../configs/database-connection';
+import prisma from '../../configs/database-connection.ts';
+import { Prisma } from '@prisma/client';
 
-async function createUser(data: prisma.usuariosCreateInput) {
-  return prisma.usuarios.create({
+async function createUser(data: Prisma.UserCreateInput) {
+  return prisma.user.create({
     data,
   });
 }
@@ -12,7 +13,7 @@ async function findByEmail(email: string) {
       email,
     },
   };
-  return prisma.usuarios.findFirst(params);
+  return prisma.user.findFirst(params);
 }
 
 const userRepository = {

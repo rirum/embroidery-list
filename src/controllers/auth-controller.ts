@@ -1,15 +1,15 @@
 import httpStatus from 'http-status';
 import { Request, Response } from 'express';
-import userService from '../service/user-service';
+import userService from '../service/user-service/index.ts';
 
 export async function postUser(req: Request, res: Response) {
-  const { nome, password, email } = req.body;
+  const { name, password, email } = req.body;
   try {
-    const user = await userService.createUser({ nome, password, email });
+    const user = await userService.createUser(name, password, email);
 
     return res.status(httpStatus.CREATED).json({
       id: user.id,
-      nome: user.nome,
+      name: user.name,
       email: user.email,
     });
   } catch (error) {
