@@ -6,8 +6,11 @@ export type ApplicationError = {
 };
 
 export type SignInType = {
-  id: number;
-  email: string;
+  user: Pick<User, 'email' | 'password'>;
+};
+
+export type SignInResult = {
+  user: Pick<User, 'id' | 'email'>;
   token: string;
 };
 

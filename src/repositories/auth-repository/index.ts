@@ -16,9 +16,15 @@ async function findByEmail(email: string) {
   return prisma.user.findFirst(params);
 }
 
+async function signIn(data: Prisma.SessionUncheckedCreateInput) {
+  return prisma.session.create({
+    data,
+  });
+}
 const userRepository = {
   createUser,
   findByEmail,
+  signIn,
 };
 
 export default userRepository;
