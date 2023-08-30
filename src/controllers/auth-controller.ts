@@ -3,9 +3,9 @@ import { Request, Response } from 'express';
 import userService from '../service/user-service/index.ts';
 
 export async function postUser(req: Request, res: Response) {
-  const { name, password, email } = req.body;
+  const { name, email, password } = req.body;
   try {
-    const user = await userService.createUser(name, password, email);
+    const user = await userService.createUser(name, email, password);
 
     return res.status(httpStatus.CREATED).json({
       id: user.id,
