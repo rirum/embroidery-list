@@ -34,6 +34,8 @@ export async function verifyEmail(email: string) {
     throw duplicatedEmailError();
   }
 }
+
+
 const userService = {
   createUser,
 };
