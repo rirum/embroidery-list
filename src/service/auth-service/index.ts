@@ -9,7 +9,7 @@ import userRepository from '../../repositories/auth-repository/index.ts';
 async function signIn(params: SignInType): Promise<SignInResult> {
   const { email, password } = params;
   const user = await userExist(email);
-  console.log(user);
+  
 
   await validatePassword(password, user.password);
   const token = await createSession(user.id);

@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import prisma from '../configs/database-connection.ts';
+import prisma from '../configs/database-connection';
 import * as jwt from 'jsonwebtoken';
-
-import httpStatus from 'http-status';
 import { unauthorizedError } from '../errors/unauthorized-error.ts';
 
 export async function authenticateToken(
@@ -30,10 +28,10 @@ export async function authenticateToken(
 }
 
 function generateUnauthorizedResponse(res: Response) {
-  res.status(httpStatus.UNAUTHORIZED).send(unauthorizedError());
+  res.status(401).send(unauthorizedError());
 }
 
-export type AuthenticationRequest = Request & JwtPayload;
+export type AuthenticationRequest = Request & { user?: JwtPayload };
 
 type JwtPayload = {
   userId: number;
