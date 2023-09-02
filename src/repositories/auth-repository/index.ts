@@ -21,10 +21,18 @@ async function signIn(data: Prisma.SessionUncheckedCreateInput) {
     data,
   });
 }
+
+async function getUserById(userId: number) {
+  const user = prisma.user.findUnique({
+    where: { id: userId },
+  });
+  return user;
+}
 const userRepository = {
   createUser,
   findByEmail,
   signIn,
+  getUserById,
 };
 
 export default userRepository;
