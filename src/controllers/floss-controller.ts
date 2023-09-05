@@ -6,6 +6,8 @@ export async function postFloss(req: Request, res: Response) {
   try {
     const { code, brandName, flossId, flossImg, description } = req.body;
     const userId = req.params.userId;
+
+    console.log(userId);
     if (!userId) {
       return res.status(401).send(`User not authenticated`);
     }
@@ -18,7 +20,7 @@ export async function postFloss(req: Request, res: Response) {
       description,
     };
 
-    const floss = await flossService.postFloss(req.params.userId);
+    // const floss = await flossService.postFloss(req.params.userId);
   } catch (error) {
     console.log(error);
   }
