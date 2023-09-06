@@ -5,6 +5,7 @@ import { NotFoundError } from '../../errors/not-found-error';
 
 async function postFloss(userId: number, data: Prisma.FlossCreateInput) {
   const user = await userRepository.getUserById(userId);
+
   if (!user) throw NotFoundError();
   try {
     const createFloss = await flossRepository.postFloss(data);
