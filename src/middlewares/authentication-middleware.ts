@@ -12,25 +12,25 @@ export async function authenticateToken(
   if (!authHeader) return generateUnauthorizedResponse(res);
 
   const token = authHeader.split(' ')[1];
-  console.log(token);
+
   if (!token) return generateUnauthorizedResponse(res);
 
   try {
     // const userDecoded = jwt.verify(token, process.env.JWT_SECRET as string);
     // console.log(userDecoded);
+
     const { userId } = jwt.verify(
       token,
       process.env.JWT_SECRET as string
     ) as JwtPayload;
-
+    req.userId = userId;
     const session = await prisma.session.findFirst({ where: { token } });
-
-    if (!session) return;
-    req.user = { userId };
+    console.log(session);
+    if (!session) throw generateUnauthorizedResponse(res);
 
     return next();
   } catch (error) {
-    return generateUnauthorizedResponse(res);
+    return console.log(error.message);
   }
 }
 
@@ -38,7 +38,7 @@ function generateUnauthorizedResponse(res: Response) {
   res.status(401).send(unauthorizedError());
 }
 
-export type AuthenticationRequest = Request & { user?: JwtPayload };
+export type AuthenticationRequest = Request & { userId?: number };
 
 type JwtPayload = {
   userId: number;

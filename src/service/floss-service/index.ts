@@ -1,17 +1,23 @@
-import { Prisma, Floss } from '@prisma/client';
-import userRepository from '../../repositories/auth-repository';
-import flossRepository from '../../repositories/floss-repository';
-import { NotFoundError } from '../../errors/not-found-error';
+import { Prisma } from '@prisma/client';
+import userRepository from '../../repositories/auth-repository/index.ts';
+import flossRepository from '../../repositories/floss-repository/index.ts';
+import { NotFoundError } from '../../errors/not-found-error.ts';
 
 async function postFloss(userId: number, data: Prisma.FlossCreateInput) {
   const user = await userRepository.getUserById(userId);
 
   if (!user) throw NotFoundError();
   try {
-    const createFloss = await flossRepository.postFloss(data);
+    const createFlossInput: Prisma.FlossCreateInput = {
+      ...data,
+      user: { connect: { id: userId } },
+    };
+
+    const createFloss = await flossRepository.postFloss(createFlossInput);
+
     return createFloss;
   } catch (error) {
-    throw new Error(`Error on the new floss entry`);
+    console.log(error.message);
   }
 }
 

@@ -38,9 +38,7 @@ async function createSession(userId: number): Promise<string> {
     return existingSession.token;
   }
 
-  const newToken = jwt.sign({ userId }, process.env.JWT_SECRET as string, {
-    expiresIn: '24h',
-  });
+  const newToken = jwt.sign({ userId }, process.env.JWT_SECRET as string);
 
   await userRepository.signIn({
     token: newToken,
