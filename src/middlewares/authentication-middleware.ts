@@ -16,16 +16,13 @@ export async function authenticateToken(
   if (!token) return generateUnauthorizedResponse(res);
 
   try {
-    // const userDecoded = jwt.verify(token, process.env.JWT_SECRET as string);
-    // console.log(userDecoded);
-
     const { userId } = jwt.verify(
       token,
       process.env.JWT_SECRET as string
     ) as JwtPayload;
     req.userId = userId;
     const session = await prisma.session.findFirst({ where: { token } });
-    console.log(session);
+
     if (!session) throw generateUnauthorizedResponse(res);
 
     return next();

@@ -14,6 +14,7 @@ model Floss {
   flossId     String  @db.VarChar(20)
   flossImg    String? @default("")
   description String? @default("")
+  quantity    Int?    @default(0)
   red         Int?    @db.SmallInt
   blue        Int?    @db.SmallInt
   green       Int?    @db.SmallInt

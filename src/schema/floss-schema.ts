@@ -7,6 +7,7 @@ export const flossSchema = Joi.object<FlossType>({
   flossId: Joi.string().required(),
   flossImg: Joi.string(),
   description: Joi.string(),
+  quantity: Joi.number(),
   red: Joi.number(),
   blue: Joi.number(),
   green: Joi.number(),

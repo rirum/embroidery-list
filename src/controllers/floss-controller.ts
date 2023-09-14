@@ -20,3 +20,23 @@ export async function postFloss(req: AuthenticationRequest, res: Response) {
     }
   }
 }
+
+export async function getAllFlossByUserId(
+  req: AuthenticationRequest,
+  res: Response
+) {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      return res.status(401).send(`user not authenticated`);
+    }
+    const getAllFloss = await flossService.getAllFlossByUserId(userId);
+    return res.status(201).json(getAllFloss);
+  } catch (error) {
+    if (error.message === 'There is no floss on this user') {
+      return res.status(400).send('There is no floss on this user');
+    } else {
+      console.log(error.message);
+    }
+  }
+}

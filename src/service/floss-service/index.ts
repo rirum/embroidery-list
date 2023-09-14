@@ -30,12 +30,19 @@ async function checkFlossId(flossId: string) {
 
   return floss !== null;
 }
+
+async function getAllFlossByUserId(userId: number) {
+  const allFloss = await flossRepository.getAllFlossByUserId(userId);
+  if (!allFloss) throw new Error('There is no floss on this user');
+  return allFloss;
+}
 export type FlossType = {
   code: string;
   brandName: string;
   flossId: string;
   flossImg: string;
   description: string;
+  quantity: number;
   red: number | null;
   blue: number | null;
   green: number | null;
@@ -45,6 +52,7 @@ export type FlossType = {
 const flossService = {
   postFloss,
   checkFlossId,
+  getAllFlossByUserId,
 };
 
 export default flossService;

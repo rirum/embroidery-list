@@ -18,11 +18,16 @@ async function getFlossById(id: number): Promise<Floss | null> {
 async function getFlossByName(flossId: string): Promise<Floss | null> {
   return prisma.floss.findFirst({ where: { flossId: flossId } });
 }
+
+async function getAllFlossByUserId(userId: number): Promise<Floss[]> {
+  return prisma.floss.findMany({ where: { userId: userId } });
+}
 const flossRepository = {
   postFloss,
   getAllFloss,
   getFlossById,
   getFlossByName,
+  getAllFlossByUserId,
 };
 
 export default flossRepository;
