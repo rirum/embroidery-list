@@ -2,11 +2,16 @@ import { Prisma } from '@prisma/client';
 import userRepository from '../../repositories/auth-repository/index.ts';
 import flossRepository from '../../repositories/floss-repository/index.ts';
 import { NotFoundError } from '../../errors/not-found-error.ts';
+import { AlreadyExists } from '../../errors/already-exists.ts';
 
 async function postFloss(userId: number, data: Prisma.FlossCreateInput) {
   const user = await userRepository.getUserById(userId);
 
   if (!user) throw NotFoundError();
+
+  const flossIdAlreadyExists = await checkFlossId(data.flossId);
+  if (flossIdAlreadyExists) throw new Error('Floss ID Already Exists');
+
   try {
     const createFlossInput: Prisma.FlossCreateInput = {
       ...data,
@@ -20,7 +25,11 @@ async function postFloss(userId: number, data: Prisma.FlossCreateInput) {
     console.log(error.message);
   }
 }
+async function checkFlossId(flossId: string) {
+  const floss = await flossRepository.getFlossByName(flossId);
 
+  return floss !== null;
+}
 export type FlossType = {
   code: string;
   brandName: string;
@@ -35,6 +44,7 @@ export type FlossType = {
 
 const flossService = {
   postFloss,
+  checkFlossId,
 };
 
 export default flossService;

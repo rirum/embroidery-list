@@ -15,10 +15,14 @@ async function getFlossById(id: number): Promise<Floss | null> {
   return prisma.floss.findUnique({ where: { id: id } });
 }
 
+async function getFlossByName(flossId: string): Promise<Floss | null> {
+  return prisma.floss.findFirst({ where: { flossId: flossId } });
+}
 const flossRepository = {
   postFloss,
   getAllFloss,
   getFlossById,
+  getFlossByName,
 };
 
 export default flossRepository;

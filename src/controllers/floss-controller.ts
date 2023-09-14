@@ -13,6 +13,10 @@ export async function postFloss(req: AuthenticationRequest, res: Response) {
     const floss = await flossService.postFloss(userId, flossData);
     return res.status(201).json(floss);
   } catch (error) {
-    console.log(error.message);
+    if (error.message === 'Floss ID Already Exists') {
+      return res.status(400).send('Floss ID already exists');
+    } else {
+      console.log(error.message);
+    }
   }
 }
