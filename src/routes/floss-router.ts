@@ -3,6 +3,7 @@ import { validateBody } from '../middlewares/validation.middleware.ts';
 import { authenticateToken } from '../middlewares/authentication-middleware.ts';
 import { flossSchema } from '../schema/floss-schema.ts';
 import {
+  deleteFloss,
   getAllFlossByUserId,
   postFloss,
   updateFloss,
@@ -10,17 +11,9 @@ import {
 
 const flossRouter = Router();
 
-flossRouter.post('/', authenticateToken, validateBody(flossSchema), postFloss);
-flossRouter.get(
-  '/',
-  authenticateToken,
-  validateBody(flossSchema),
-  getAllFlossByUserId
-);
-flossRouter.patch(
-  '/:id',
-  authenticateToken,
-  validateBody(flossSchema),
-  updateFloss
-);
+flossRouter.use(authenticateToken, validateBody(flossSchema));
+flossRouter.post('/', postFloss);
+flossRouter.get('/', getAllFlossByUserId);
+flossRouter.patch('/:id', updateFloss);
+flossRouter.delete('/:id', deleteFloss);
 export { flossRouter };

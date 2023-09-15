@@ -61,6 +61,11 @@ async function updateFloss(
 
   return updatedFloss;
 }
+
+async function deleteFloss(flossId: number) {
+  await flossRepository.deleteFloss(flossId);
+}
+
 export type FlossType = {
   code: string;
   brandName: string;
@@ -80,6 +85,7 @@ const flossService = {
   getFlossById,
   getAllFlossByUserId,
   updateFloss,
+  deleteFloss,
 };
 
 export default flossService;

@@ -65,3 +65,22 @@ export async function updateFloss(req: AuthenticationRequest, res: Response) {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+export async function deleteFloss(req: AuthenticationRequest, res: Response) {
+  try {
+    const flossId = parseInt(req.params.id);
+    const userId = req.userId;
+
+    const existingFloss = await flossService.getFlossById(flossId);
+    if (!existingFloss) {
+      return res.status(404).json({ error: 'Floss not found' });
+    }
+    if (existingFloss.userId !== userId) {
+      return res.status(403).json({ error: 'Permission denied' });
+    }
+    await flossService.deleteFloss(flossId);
+    return res.status(204).send();
+  } catch (error) {
+    console.log(error.message);
+  }
+}
