@@ -5,6 +5,7 @@ import { flossSchema } from '../schema/floss-schema.ts';
 import {
   getAllFlossByUserId,
   postFloss,
+  updateFloss,
 } from '../controllers/floss-controller.ts';
 
 const flossRouter = Router();
@@ -15,5 +16,11 @@ flossRouter.get(
   authenticateToken,
   validateBody(flossSchema),
   getAllFlossByUserId
+);
+flossRouter.patch(
+  '/:id',
+  authenticateToken,
+  validateBody(flossSchema),
+  updateFloss
 );
 export { flossRouter };

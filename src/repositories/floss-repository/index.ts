@@ -22,6 +22,8 @@ async function getFlossByName(flossId: string): Promise<Floss | null> {
 async function getAllFlossByUserId(userId: number): Promise<Floss[]> {
   return prisma.floss.findMany({ where: { userId: userId } });
 }
+
+
 const flossRepository = {
   postFloss,
   getAllFloss,
