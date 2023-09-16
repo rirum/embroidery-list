@@ -36,6 +36,7 @@ async function getUserById(userId: number) {
   });
   return user;
 }
+
 const userRepository = {
   createUser,
   findByEmail,
