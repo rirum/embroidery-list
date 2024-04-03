@@ -16,7 +16,7 @@ async function postFloss(userId: number, data: Prisma.FlossCreateInput) {
   try {
     const createFlossInput: Prisma.FlossCreateInput = {
       ...data,
-      user: { connect: { id: userId } },
+      users: { connect: { id: userId } },
     };
 
     const createFloss = await flossRepository.postFloss(createFlossInput);

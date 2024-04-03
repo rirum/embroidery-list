@@ -19,8 +19,6 @@ export async function createUser(
     password: hashedPassword,
   };
 
-  console.log(teste);
-
   return userRepository.createUser({
     name: name,
     email: email,
@@ -34,7 +32,6 @@ export async function verifyEmail(email: string) {
     throw duplicatedEmailError();
   }
 }
-
 
 const userService = {
   createUser,

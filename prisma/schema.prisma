@@ -19,12 +19,12 @@ model Floss {
   blue        Int?    @db.SmallInt
   green       Int?    @db.SmallInt
   userId      Int
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users       Users   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("floss")
 }
 
-model User {
+model Users {
   id       Int       @id @default(autoincrement())
   name     String    @db.VarChar(100)
   password String    @db.VarChar(100)
@@ -32,14 +32,14 @@ model User {
   floss    Floss[]
   Session  Session[]
 
-  @@map("user")
+  @@map("users")
 }
 
 model Session {
   id     Int    @id @default(autoincrement())
   userId Int
   token  String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "sessao_userId_foreign")
+  users  Users  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "sessao_userId_foreign")
 
   @@map("session")
 }

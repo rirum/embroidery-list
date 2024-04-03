@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { Users } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { invalidCredentialsError } from './errors.ts';
@@ -47,13 +47,13 @@ async function createSession(userId: number): Promise<string> {
 
   return newToken;
 }
-export type SignInType = Pick<User, 'email' | 'password'>;
+export type SignInType = Pick<Users, 'email' | 'password'>;
 export type SignInResult = {
-  user: Pick<User, 'id' | 'email'>;
+  user: Pick<Users, 'id' | 'email'>;
   token: string;
 };
 
-export type GetUserOrFailResult = Pick<User, 'id' | 'email' | 'password'>;
+export type GetUserOrFailResult = Pick<Users, 'id' | 'email' | 'password'>;
 
 const authService = {
   signIn,

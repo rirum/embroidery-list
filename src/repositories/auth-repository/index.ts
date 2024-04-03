@@ -1,8 +1,8 @@
 import prisma from '../../configs/database-connection.ts';
 import { Prisma, Session } from '@prisma/client';
 
-async function createUser(data: Prisma.UserCreateInput) {
-  return prisma.user.create({
+async function createUser(data: Prisma.UsersCreateInput) {
+  return prisma.users.create({
     data,
   });
 }
@@ -13,7 +13,7 @@ async function findByEmail(email: string) {
       email,
     },
   };
-  return prisma.user.findFirst(params);
+  return prisma.users.findFirst(params);
 }
 
 async function signIn(data: Prisma.SessionUncheckedCreateInput) {
@@ -31,9 +31,10 @@ async function getUserSession(userId: number): Promise<Session | null> {
   return session;
 }
 async function getUserById(userId: number) {
-  const user = prisma.user.findUnique({
+  const user = prisma.users.findUnique({
     where: { id: userId },
   });
+
   return user;
 }
 const userRepository = {
